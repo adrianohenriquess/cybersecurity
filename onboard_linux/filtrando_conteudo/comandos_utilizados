@@ -1,0 +1,72 @@
+#cp /etc/services .
+copiar o arquivo services para dentro do diretorio corrente
+
+#cat services 
+mostrar o conteudo de services
+
+#grep http services 
+localizar o texto "http" dentro do arquivo services
+
+#grep https services 
+localizar o texto "https" dentro do arquivo services
+
+#grep -i http services 
+localizar o texto "http" dentro do arquivo services, mas com ignore case
+
+#cp /etc/passwd .
+copiar o arquivo passwd para o diretorio corrente
+arquivo com os dados dos usuarios locais do sistema
+
+#grep adriano *
+localizar o texto "adriano" nos dois arquivos presentes no diretorio corrente
+
+
+#grep -l adriano *
+mostra em qual arquivo o texto "adriano" está localizado
+
+#grep -L adriano *
+mostra os arquivos que não contem o texto "adriano"
+
+#mkdir teste
+criando a pasta teste
+
+#cd teste/
+entra na pasta teste
+
+#cp ../services services2
+copia o arquivo service da pasta anterior para a pasta teste com o nome de services2
+
+#cd ..
+volta a pasta filtrando_conteudo
+
+#grep HTTP services 
+localiza a string "HTTP" no arquivo services
+
+#grep HTTP *
+localiza "HTTP" em todos os arquivos, mas não consegue avançar na pasta teste para fazer a busca
+
+#grep -r HTTP *
+usa recursividade para localizar a string "HTTP" na pasta corrente e na pasta interna
+
+
+#grep -rl HTTP *
+usa recursividade para localizar a string "HTTP" na pasta corrente e na pasta interna chamada teste
+o parametro l faz a listagem dos arquivos
+
+
+#more services
+paginação de arquivos linha a linha
+
+#less services
+paginação pagina a pagina com a tecla espaço
+
+#tail /etc/passwd
+mostra a ultimas 10 linhas de um arquivo por padrão
+
+#head /etc/passwd
+mostra a 10 primeiras linhas de um arquivo por padrão
+
+#tail -n 3 /etc/passwd
+mostrar as ultimas 3 linhas do arquivo
+
+
