@@ -70,3 +70,23 @@ mostra a 10 primeiras linhas de um arquivo por padrão
 mostrar as ultimas 3 linhas do arquivo
 
 
+#ls -l /etc/*.conf
+listar todos os arquivos que tem a extensão .conf na pasta etc
+
+#find / -name *.conf
+procurar a partir do diretorio raiz os arquivos que terminam em .conf
+
+
+#sudo find /etc -maxdepth 2 -name *.conf
+procurar a partir de /etc os arquivos que terminam em .conf, mas ele não avança mais de 2 diretorios 
+na busca
+
+#sudo find / -atime -2
+#sudo find / -amin -2
+Verfifcar se exitem arquivos editados ha 2 anos e ha 2 minutos
+
+#sudo find / -size +1000M
+localiza os arquivos com mais de 100 MB
+
+#sudo find / -size +3G
+localiza os arquivos com mais de 3G
