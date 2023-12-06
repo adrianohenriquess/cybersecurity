@@ -1,0 +1,3 @@
+adriano:x:1000:1000:Adriano Henrique de Souza da Silva,,,:/home/adriano:/bin/bash
+ms-wbt-server	3389/tcp
+ssh		22/tcp				# SSH Remote Login Protocol

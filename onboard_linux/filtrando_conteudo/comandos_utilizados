@@ -90,3 +90,39 @@ localiza os arquivos com mais de 100 MB
 
 #sudo find / -size +3G
 localiza os arquivos com mais de 3G
+
+#grep ssh services > listagem
+redireciona a saida do comando grep para o arquivo listagem
+
+#grep 3389 services >> listagem
+redireciona a saida do comando grep para o arquivo listagem, mas não o sobrescreve.
+
+#cat /etc/passwd | grep adriano
+redireciona a saida do comando cat para o comando grep e mostra o resultado na tela
+
+#cat /etc/passwd | grep adriano >> listagem
+redireciona a saida do comando cat para o comando grep e o resultado é acrescentado ao arquivo listagem
+
+#cat listagem  | sort > listagem2
+redireciona o conteudo do comando cat para o comando sort. Grava o resultado no arquivo listagem2
+
+#tail -n 5 /var/log/syslog | grep systemd > log5
+pegando as ultimas 5 linhas do arquivo de log do sistema, rediredionando a saida para o comando grep
+com a query "systemd" e gravando no arquivo log5
+
+#cat syslog | grep systemd | wc -l
+mostrando o conteudo do syslog, capturando esse texto e filtrando com grep a string "systemd"
+e por ultimo, pegando esse filtro e contando quantas linhas tem com o comando wc -l
+
+#cat syslog | grep systemd > /opt/cybersecurity/onboard_linux/filtrando_conteudo/extraindo_conteudos/logs
+mesmo comando, mas extraindo para um arquivo de logs
+
+#cat logs | cut -d " " -f7-
+captura o texto de logs, joga para o cut com o delimitador " " e pega a ultima faixa do log -f7, e o 
+tracinho indica que deve ir atpe o fim do arquivo
+
+#cat logs | cut -d " " -f1-4,7- > logs1
+captura a texto de logs, joga para o cut com o delimitador " " començando da primeira coluna até a 4
+depois a 7 até o final do arquivo e grava isso em logs1
+
+
