@@ -125,4 +125,68 @@ tracinho indica que deve ir atpe o fim do arquivo
 captura a texto de logs, joga para o cut com o delimitador " " començando da primeira coluna até a 4
 depois a 7 até o final do arquivo e grava isso em logs1
 
+#expressoes regulares
+
+#sudo apt install wamerican
+instalar o pacote wamerican com varias palavras
+#find /usr -name *american
+localizar onde o pacote foi instalado
+#cp /usr/share/dict/american-english  .
+copia o arquivo american-english para o diretorio atual
+#cat american-english | grep computer
+filtra a palavra computer no arquivo american-english
+
+
+#cat american-english | grep -E "^computer"
+filtra apenas as palavras que começam com computer
+
+#cat american-english | grep -E "computer$"
+filtra apenas as palavras que terminam com computer
+
+#cat american-english | grep -E "^computer$"
+filtra apenas as palavras que começam e terminam com computer
+
+#grep -i ^computer$ american-english
+mesmo comando mas que não precisa do cat
+
+#echo "Computer" >> american-english
+colocar uma nova string, nesse caso "Computer" para dentro do arquivo
+
+#grep -i computer american-english
+podemos selecionar "computer" ignorando o case sensitive no arquivo american-english
+
+#cat american-english | grep -iE "^computer$"
+usando a expressão regular para selecionar palavras que começam e terminam com "computer"
+acrescentando o -i para ignorar o case sensitive
+resultando em:
+#computer
+#Computer
+
+#egrep -i "^computer$" american-english
+egrep é a mesma coisa que o grep -E
+
+#cat american-english | grep -iE "^smartphone$|^computer$"
+Buscar no arquivo american-english ignorando case as palavras que começam com smartphone 
+e terminam com smartphone e a mesma coisa para computer
+
+
+#egrep "^.oot" american-english 
+filtrando as palavras que começam com "oot", mas a primeira letra variável com .
+
+#egrep "^.oot$" american-english
+filtrando as palavras que começam e terminam com oot, mas com a primeira letra variável com .
+
+#egrep "^.oot..$" american-english 
+filtrando as palavras que começam com oot com a primeira letra variável, e pode ter os dois ultimos 
+caracteres variaveis
+
+#egrep "^[flmr]oot..$" american-english
+filtrando as palavras que começam com as consoantes f ou l ou m ou r
+seguido da string "oot" terminando com qualquer caracter em duas posições
+
+#egrep "^[l-n]oot..$" american-english
+filtrando com um range de l até n para a primeira letra, seguido de "oot", com o final variando 
+com dois caracteres quaisquer
+
+
 
