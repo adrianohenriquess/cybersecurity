@@ -189,4 +189,26 @@ filtrando com um range de l até n para a primeira letra, seguido de "oot", com 
 com dois caracteres quaisquer
 
 
+#comandos utilizados no vim
+#a modoe de inserção
+#esc fica no modo de visualização
+#:wq salva e sai do arquivo
+# r ativa o modo replace, para substituir caracteres
+# dd apaga uma linha
+# apagar um conjunto de linhas, posiciona o curso no inicio da onde voce quer começar a apagar
+# e digite numero de linhas + dd, ou seja, 7dd
+#: numero da linha, :13
+# gg inicio do arquivo G fim do arquivo
+# dd recorta a linha, p cola depois da linha que voce está, P cola antes do curso
+# copiar varias linha, posiciona o cursor na linha que voce quer, para copiar 4 linhas por exemplo,
+# digite o numero de linhas 4yy
+# depois va para a linha que voce deseja e digite p
+# para localizar e substituir
+#digite :s/ssh/SSH vai substituir a palavra ssh por SSH apenas da primeira ocorrencia
+# para todas as ocorrencias da mesma linha :s/SSH/ssh/g
+# :%s/domain/teste/g substituir todas as palavras domain para teste no arquivo inteiro
+
+
+
+
 
