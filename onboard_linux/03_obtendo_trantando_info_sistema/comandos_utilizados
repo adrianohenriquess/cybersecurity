@@ -1,0 +1,8 @@
+#criando a pasta bin no home do usuario é possível executar qualquer script, pois existe as seguintes linhas no .profile do usuario:
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+
