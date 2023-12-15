@@ -188,6 +188,9 @@ seguido da string "oot" terminando com qualquer caracter em duas posições
 filtrando com um range de l até n para a primeira letra, seguido de "oot", com o final variando 
 com dois caracteres quaisquer
 
+#egrep -i -B 4 -A 4 exe@example01.com Log.log 
+mostra 4 linhas antes e 4 linhas depois de encontrar a string exe@example01.com
+
 
 #comandos utilizados no vim
 #a modoe de inserção
