@@ -86,22 +86,25 @@ tmpfs           1,6G  152K  1,6G   1% /run/user/1000
 #cd /var/log
 diretorio de logs do sistema
 
+#sudo dmesg 
+lista os logs de inicialização do sistema
 
+#sudo dmesg | grep sda
+mostra as informações de inicialização do disco no sistema
 
+#cat syslog | grep -i cron
+syslog armazena logs do sistema
 
+#cat auth.log | grep -i ssh
+o auth.log mostra todos os logs de login na máquina
 
+#tail -f auth.log
+Ver as atualizações de autenticação em tempo real, pode ser usado para ver as mudanças quando
+acontece novos logins no sistema
 
-
-
-
-
-
-
-
-
-
-
-
+#cat /etc/logrotate.conf
+o arquivo logrotate.conf serve para configurar a rotação dos arquivos de log
+são recriados semanalmente e mantem na config inicial 4 backups
 
 
 
