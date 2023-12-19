@@ -5,4 +5,103 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+#ip addr
+saber os ips e configurações de cada interface de rede da máquina
+
+#hostname -I
+saber o ip da máquina
+
+#ip route
+tabela de rotas da máquina
+#default via 192.168.1.254 dev wlx007511001651 proto dhcp metric 600 
+#169.254.0.0/16 dev wlx007511001651 scope link metric 1000 
+#172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+#172.18.0.0/16 dev br-58e284b2bbdd proto kernel scope link src 172.18.0.1 linkdown 
+#192.168.1.0/24 dev wlx007511001651 proto kernel scope link src 192.168.1.109 metric 600 
+
+
+#cat /etc/resolv.conf 
+onde fica as configurações de DNS
+#nameserver 127.0.0.53
+#options edns0 trust-ad
+#search .
+
+#não é correto usar o hosts para produção, deve ser usado o resolvedor de nomes resolv.conf DNS
+#detalhe eu não sei usar o resolv.conf
+
+#sudo lshw | more
+listar o hardware da máquina com paginção 
+
+
+#sudo lshw | grep -A 15  *-cpu
+listar as informações de CPU com 15 linhas depois da localização
+
+diretorio que tem informações de hardware
+#cd /proc/
+obter as informações de memória
+#cat meminfo
+
+
+#free
+mostra a situação da memória no momento da execução
+
+contar quantos nucleos de processador tem na máquina
+#cat cpuinfo | grep processor | wc -l
+a contagem é feita com o comando wc -l
+
+#cd /dev
+local onde se encontra todos os dispositivos da máquina
+crw-r--r--  1 root root      1,  11 dez 18 19:57 kmsg
+crw-rw----+ 1 root kvm      10, 232 dez 18 19:57 kvm
+lrwxrwxrwx  1 root root          28 dez 18 19:57 log -> /run/systemd/journal/dev-log
+brw-rw----  1 root disk      7,   0 dez 18 19:57 loop0
+brw-rw----  1 root disk      7,   1 dez 18 19:57 loop1
+brw-rw----  1 root disk      7,  10 dez 18 19:57 loop10
+brw-rw----  1 root disk      7,  11 dez 18 19:57 loop11
+
+
+#b é de dispositivos de bloco
+#c é de deispositivos de caracteres
+
+#ls -l | grep sda
+lista os dispositivos de disco
+sda
+sda1
+sda2
+
+sda é sata
+hda é IDE mais antigo
+
+#df -h
+mostra o uso do disco no sistema
+Sist. Arq.      Tam. Usado Disp. Uso% Montado em
+tmpfs           1,6G  1,7M  1,6G   1% /run
+/dev/sda2       439G   32G  385G   8% /
+tmpfs           7,8G     0  7,8G   0% /dev/shm
+tmpfs           5,0M  4,0K  5,0M   1% /run/lock
+/dev/sda1       511M  6,1M  505M   2% /boot/efi
+tmpfs           1,6G  152K  1,6G   1% /run/user/1000
+
+
+#cd /var/log
+diretorio de logs do sistema
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
