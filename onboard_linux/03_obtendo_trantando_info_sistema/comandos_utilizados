@@ -106,5 +106,71 @@ acontece novos logins no sistema
 o arquivo logrotate.conf serve para configurar a rotação dos arquivos de log
 são recriados semanalmente e mantem na config inicial 4 backups
 
+#ps -e
+mostrar os processos
+
+#ps -ef
+mostra mais detalhes dos processos
+
+#ps aux
+mostra consumo de cpu, memória e os processos
+
+#ps aux | grep -i ssh
+filtra o processo ssh 
+
+#top e htop 
+mostram os processos como um monitor de processos
+
+#sudo apt install apache2
+#sudo service apache2 status
+instalar e ver o status do servidor web
+
+#ip addr para ver o ip da máquina
+
+3: wlx007511001651: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 00:75:11:00:16:51 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.109/24 brd 192.168.1.255 scope global dynamic noprefixroute wlx007511001651
+       valid_lft 82060sec preferred_lft 82060sec
+    inet6 fe80::d896:9089:af35:b6f1/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+no meu caso encontra-se na interface 3
+inet 192.168.1.109
+acessando no browser vai mostrar a pagina default do apache
+
+#ps aux | grep apache2
+listar os processos do apache2
+
+
+#top e L locate string
+
+#while :; do curl -l http://192.168.1.109; done
+faz execuções no apache de forma infinita
+
+#ps aux | grep apache
+mostra o numero do processo atrelado ao apache
+root        6271  0.0  0.0   6768  4696 ?        Ss   18:22   0:00 /usr/sbin/apache2 -k start
+www-data    6272  0.2  0.0 1932696 6236 ?        Sl   18:22   0:02 /usr/sbin/apache2 -k start
+www-data    6273  0.2  0.0 1932712 6492 ?        Sl   18:22   0:02 /usr/sbin/apache2 -k start
+www-data    6386  0.0  0.0   3736  1412 ?        Ss   18:22   0:00 /usr/bin/htcacheclean -d 120 -p /var/cache/apache2/mod_cache_disk -l 300M -n
+adriano    19147  0.0  0.0   9108  2432 pts/0    S+   18:38   0:00 grep --color=auto apache
+
+
+#cd /proc
+vai ter um diretorio para esse numero de processo no sistema
+
+
+#kill -9 numero processo pai
+mata o processo 
+
+#pstree
+mostra a arvore de processo
+
+
+
+
+
+
+
 
 
