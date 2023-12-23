@@ -166,9 +166,58 @@ mata o processo
 #pstree
 mostra a arvore de processo
 
+#sudo cat /etc/sudoers
+visualizar configurações de todos os usarios do sistema
+
+#sudo visudo
+editar o arquivo /etc/sudoers
+
+#groups
+Mostra quais os grupos que o usuario corrente pertence
+
+#cat /etc/group | grep adriano
+verificar quais os grupos no arquivo group pertencem ao usuario adriano
+adm:x:4:syslog,adriano
+cdrom:x:24:adriano
+sudo:x:27:adriano
+dip:x:30:adriano
+plugdev:x:46:adriano
+lpadmin:x:121:adriano
+lxd:x:136:adriano
+adriano:x:1000:
+sambashare:x:137:adriano
+docker:x:999:adriano
 
 
+# é usado para mostrar usuario privilegiado
+$ é usado para usuario normal
 
+
+#sudo su
+passa para o usuario root
+
+#passwd
+troca a senha do usuario corrente
+
+#cat /etc/passwd | grep root
+root:x:0:0:root:/root:/bin/bash
+nm-openvpn:x:121:128:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+
+O 0 representa o id do usuario root por ser o primeiro usuario e o principal
+
+#cat /etc/passwd | grep adriano
+adriano:x:1000:1000:Adriano Henrique de Souza da Silva,,,:/home/adriano:/bin/bash
+
+O 1000 representa o primeiro usuario comum do sistema, o segundo recebe 1001 ...
+
+#sudo cat /etc/shadow | grep adriano
+Armazena os Hashs das senhas de cada usuario cadastrado no sistema
+
+#cat /etc/passwd | grep www
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+
+www-data é um usuario especial do sistema e não tem bash assciado a ele
+por isso o nologin
 
 
 
