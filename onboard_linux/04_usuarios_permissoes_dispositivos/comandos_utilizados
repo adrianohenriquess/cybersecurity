@@ -1,0 +1,71 @@
+#sudo useradd ricardo2
+cria um usuario, mas sem dar muitos detalhes
+esse comando tem uma variedade de opções que podem ser usados em scripts
+
+#sudo adduser pedro
+[sudo] senha para adriano: 
+Adicionando o usuário `pedro' ...
+Adicionando novo grupo 'pedro' (1001) ...
+Adicionando novo usuário `pedro' (1001) ao grupo `pedro' ...
+Criando diretório pessoal `/home/pedro' ...
+Copiando arquivos de '/etc/skel' ...
+Nova senha: 
+Redigite a nova senha: 
+passwd: senha atualizada com sucesso
+Modificando as informações de usuário para pedro
+Informe o novo valor ou pressione ENTER para aceitar o padrão
+	Nome Completo []: Pedro Henrique Rodrigues Souza
+	Número da Sala []: 
+	Fone de Trabalho []: 
+	Fone Residencial []: 
+	Outro []: 
+A informação está correta? [S/n] s
+
+esse comando cria a pasta home ja com varios arquivos de configuração
+-rw-r--r--  1 pedro pedro   220 dez 26 20:28  .bash_logout
+-rw-r--r--  1 pedro pedro  3771 dez 26 20:28  .bashrc
+drwxr-xr-x 10 pedro pedro  4096 dez 26 20:30  .cache
+drwx------ 16 pedro pedro  4096 dez 26 20:30  .config
+-rw-r--r--  1 pedro pedro    23 dez 26 20:30  .dmrc
+drwx------  3 pedro pedro  4096 dez 26 20:30  .local
+-rw-r--r--  1 pedro pedro   807 dez 26 20:28  .profile
+
+a pasta /etc/skel tem o modelo dos arquivos que são adicionados a pasta do novo usuario
+
+
+#su - pedro
+pede a senha e alterna para o usuario pedro
+o shell fica
+pedro@adriano-desktop:~$
+
+#sudo groupadd projetos
+Cria um grupo novo no sistema
+
+#sudo usermod -aG projetos pedro
+Adiciona grupos suplemetares ao usuario pedro
+o g minúsculo troca o grupo principal para o grupo projetos e isso pode dar problema
+
+#groups pedro
+pedro : pedro projetos
+para mostrar os grupos do pedro
+A alteração será feita no arquivo /etc/group
+
+
+#sudo userdel pedro
+#sudo groupdel projetos
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
