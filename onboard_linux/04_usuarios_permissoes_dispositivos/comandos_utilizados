@@ -54,6 +54,65 @@ A alteração será feita no arquivo /etc/group
 #sudo userdel pedro
 #sudo groupdel projetos
 
+#diretorio ou arquivo só pode pertencer a um unico dono e a um unico grupo
+drwxrwxr-x 17 root syslog   4096 jan 17 17:50 log
+r - read
+w - write
+x - execute
+o x atribuido a um diretorio diz que voce pode entrar no diretorio(direito de acesso)
+
+d rwx   rwx   r-x
+   |     |     |
+   v     v     v
+  user group other -> qualquer um
+
+Base octal (Numerical representation) para os acessos
+7 = rwx
+6 = rw-
+5 = r-x
+4 = r--
+3 = -wx
+2 = -w-
+1 = --x
+0 = ---
+
+#mkdir projetos
+#chmod 770 projetos/
+Altera a permissão do diretorio projetos deixando o usuario rwx, o grupo rwx e o resto ---
+#drwxrwx--- 2 adriano adriano 4096 jan 17 18:16 projetos
+
+#chmod 774 projetos/
+direto de leitura a todos os usuarios
+
+#chown adriano:adriano projetos/
+muda o dono do diretorio e o grupo tambem
+
+#chmod o-r projetos/
+Tirar a permissão de leitura de outros usuarios 
+#chmod u-r projetos/
+Tirar a permissão de leitura do usuario
+#chmod g-r projetos/
+Tirar a permissão de leitura do grupo
+
+
+#chmod g+r projetos/
+Atribui a permissão de leitura ao grupo na pasta projetos
+
+#chmod g+s projetos/
+permissão especial para o grupo do usuario a pasta projetos
+atribui aos arquivos e pastas criadas dentro da pasta projetos
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
