@@ -103,6 +103,34 @@ permissão especial para o grupo do usuario a pasta projetos
 atribui aos arquivos e pastas criadas dentro da pasta projetos
 
 
+#sudo apt install
+instalar pacotes no linux
+
+#apt search apache2
+pesquisar um pacote no repositorio
+
+#apt show apache2
+mostra os detalhes do pacote apache2
+
+#sudo apt remove apache2
+Remove o apache
+
+#sudo apt autoremove
+remove as dependencias do apache2
+
+#apt list --upgradable
+mostra a lista de pacotes que podem ser atualizados
+
+#sudo apt upgrade
+atualiza os pacotes do sistema operacional
+
+#sudo apt list --installed
+lista os pacotes ja instalados no sistema
+
+
+
+
+
 
 
 

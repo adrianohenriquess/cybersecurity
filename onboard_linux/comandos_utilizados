@@ -212,6 +212,389 @@ mostra 4 linhas antes e 4 linhas depois de encontrar a string exe@example01.com
 # :%s/domain/teste/g substituir todas as palavras domain para teste no arquivo inteiro
 
 
+#criando a pasta bin no home do usuario é possível executar qualquer script, pois existe as seguintes linhas no .profile do usuario:
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+#ip addr
+saber os ips e configurações de cada interface de rede da máquina
+
+#hostname -I
+saber o ip da máquina
+
+#ip route
+tabela de rotas da máquina
+#default via 192.168.1.254 dev wlx007511001651 proto dhcp metric 600 
+#169.254.0.0/16 dev wlx007511001651 scope link metric 1000 
+#172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+#172.18.0.0/16 dev br-58e284b2bbdd proto kernel scope link src 172.18.0.1 linkdown 
+#192.168.1.0/24 dev wlx007511001651 proto kernel scope link src 192.168.1.109 metric 600 
+
+
+#cat /etc/resolv.conf 
+onde fica as configurações de DNS
+#nameserver 127.0.0.53
+#options edns0 trust-ad
+#search .
+
+#não é correto usar o hosts para produção, deve ser usado o resolvedor de nomes resolv.conf DNS
+#detalhe eu não sei usar o resolv.conf
+
+#sudo lshw | more
+listar o hardware da máquina com paginção 
+
+
+#sudo lshw | grep -A 15  *-cpu
+listar as informações de CPU com 15 linhas depois da localização
+
+diretorio que tem informações de hardware
+#cd /proc/
+obter as informações de memória
+#cat meminfo
+
+
+#free
+mostra a situação da memória no momento da execução
+
+contar quantos nucleos de processador tem na máquina
+#cat cpuinfo | grep processor | wc -l
+a contagem é feita com o comando wc -l
+
+#cd /dev
+local onde se encontra todos os dispositivos da máquina
+crw-r--r--  1 root root      1,  11 dez 18 19:57 kmsg
+crw-rw----+ 1 root kvm      10, 232 dez 18 19:57 kvm
+lrwxrwxrwx  1 root root          28 dez 18 19:57 log -> /run/systemd/journal/dev-log
+brw-rw----  1 root disk      7,   0 dez 18 19:57 loop0
+brw-rw----  1 root disk      7,   1 dez 18 19:57 loop1
+brw-rw----  1 root disk      7,  10 dez 18 19:57 loop10
+brw-rw----  1 root disk      7,  11 dez 18 19:57 loop11
+
+
+#b é de dispositivos de bloco
+#c é de deispositivos de caracteres
+
+#ls -l | grep sda
+lista os dispositivos de disco
+sda
+sda1
+sda2
+
+sda é sata
+hda é IDE mais antigo
+
+#df -h
+mostra o uso do disco no sistema
+Sist. Arq.      Tam. Usado Disp. Uso% Montado em
+tmpfs           1,6G  1,7M  1,6G   1% /run
+/dev/sda2       439G   32G  385G   8% /
+tmpfs           7,8G     0  7,8G   0% /dev/shm
+tmpfs           5,0M  4,0K  5,0M   1% /run/lock
+/dev/sda1       511M  6,1M  505M   2% /boot/efi
+tmpfs           1,6G  152K  1,6G   1% /run/user/1000
+
+
+#cd /var/log
+diretorio de logs do sistema
+
+#sudo dmesg 
+lista os logs de inicialização do sistema
+
+#sudo dmesg | grep sda
+mostra as informações de inicialização do disco no sistema
+
+#cat syslog | grep -i cron
+syslog armazena logs do sistema
+
+#cat auth.log | grep -i ssh
+o auth.log mostra todos os logs de login na máquina
+
+#tail -f auth.log
+Ver as atualizações de autenticação em tempo real, pode ser usado para ver as mudanças quando
+acontece novos logins no sistema
+
+#cat /etc/logrotate.conf
+o arquivo logrotate.conf serve para configurar a rotação dos arquivos de log
+são recriados semanalmente e mantem na config inicial 4 backups
+
+#ps -e
+mostrar os processos
+
+#ps -ef
+mostra mais detalhes dos processos
+
+#ps aux
+mostra consumo de cpu, memória e os processos
+
+#ps aux | grep -i ssh
+filtra o processo ssh 
+
+#top e htop 
+mostram os processos como um monitor de processos
+
+#sudo apt install apache2
+#sudo service apache2 status
+instalar e ver o status do servidor web
+
+#ip addr para ver o ip da máquina
+
+3: wlx007511001651: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 00:75:11:00:16:51 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.109/24 brd 192.168.1.255 scope global dynamic noprefixroute wlx007511001651
+       valid_lft 82060sec preferred_lft 82060sec
+    inet6 fe80::d896:9089:af35:b6f1/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+no meu caso encontra-se na interface 3
+inet 192.168.1.109
+acessando no browser vai mostrar a pagina default do apache
+
+#ps aux | grep apache2
+listar os processos do apache2
+
+
+#top e L locate string
+
+#while :; do curl -l http://192.168.1.109; done
+faz execuções no apache de forma infinita
+
+#ps aux | grep apache
+mostra o numero do processo atrelado ao apache
+root        6271  0.0  0.0   6768  4696 ?        Ss   18:22   0:00 /usr/sbin/apache2 -k start
+www-data    6272  0.2  0.0 1932696 6236 ?        Sl   18:22   0:02 /usr/sbin/apache2 -k start
+www-data    6273  0.2  0.0 1932712 6492 ?        Sl   18:22   0:02 /usr/sbin/apache2 -k start
+www-data    6386  0.0  0.0   3736  1412 ?        Ss   18:22   0:00 /usr/bin/htcacheclean -d 120 -p /var/cache/apache2/mod_cache_disk -l 300M -n
+adriano    19147  0.0  0.0   9108  2432 pts/0    S+   18:38   0:00 grep --color=auto apache
+
+
+#cd /proc
+vai ter um diretorio para esse numero de processo no sistema
+
+
+#kill -9 numero processo pai
+mata o processo 
+
+#pstree
+mostra a arvore de processo
+
+#sudo cat /etc/sudoers
+visualizar configurações de todos os usarios do sistema
+
+#sudo visudo
+editar o arquivo /etc/sudoers
+
+#groups
+Mostra quais os grupos que o usuario corrente pertence
+
+#cat /etc/group | grep adriano
+verificar quais os grupos no arquivo group pertencem ao usuario adriano
+adm:x:4:syslog,adriano
+cdrom:x:24:adriano
+sudo:x:27:adriano
+dip:x:30:adriano
+plugdev:x:46:adriano
+lpadmin:x:121:adriano
+lxd:x:136:adriano
+adriano:x:1000:
+sambashare:x:137:adriano
+docker:x:999:adriano
+
+
+# é usado para mostrar usuario privilegiado
+$ é usado para usuario normal
+
+
+#sudo su
+passa para o usuario root
+
+#passwd
+troca a senha do usuario corrente
+
+#cat /etc/passwd | grep root
+root:x:0:0:root:/root:/bin/bash
+nm-openvpn:x:121:128:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+
+O 0 representa o id do usuario root por ser o primeiro usuario e o principal
+
+#cat /etc/passwd | grep adriano
+adriano:x:1000:1000:Adriano Henrique de Souza da Silva,,,:/home/adriano:/bin/bash
+
+O 1000 representa o primeiro usuario comum do sistema, o segundo recebe 1001 ...
+
+#sudo cat /etc/shadow | grep adriano
+Armazena os Hashs das senhas de cada usuario cadastrado no sistema
+
+#cat /etc/passwd | grep www
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+
+www-data é um usuario especial do sistema e não tem bash assciado a ele
+por isso o nologin
+
+
+
+#sudo useradd ricardo2
+cria um usuario, mas sem dar muitos detalhes
+esse comando tem uma variedade de opções que podem ser usados em scripts
+
+#sudo adduser pedro
+[sudo] senha para adriano: 
+Adicionando o usuário `pedro' ...
+Adicionando novo grupo 'pedro' (1001) ...
+Adicionando novo usuário `pedro' (1001) ao grupo `pedro' ...
+Criando diretório pessoal `/home/pedro' ...
+Copiando arquivos de '/etc/skel' ...
+Nova senha: 
+Redigite a nova senha: 
+passwd: senha atualizada com sucesso
+Modificando as informações de usuário para pedro
+Informe o novo valor ou pressione ENTER para aceitar o padrão
+	Nome Completo []: Pedro Henrique Rodrigues Souza
+	Número da Sala []: 
+	Fone de Trabalho []: 
+	Fone Residencial []: 
+	Outro []: 
+A informação está correta? [S/n] s
+
+esse comando cria a pasta home ja com varios arquivos de configuração
+-rw-r--r--  1 pedro pedro   220 dez 26 20:28  .bash_logout
+-rw-r--r--  1 pedro pedro  3771 dez 26 20:28  .bashrc
+drwxr-xr-x 10 pedro pedro  4096 dez 26 20:30  .cache
+drwx------ 16 pedro pedro  4096 dez 26 20:30  .config
+-rw-r--r--  1 pedro pedro    23 dez 26 20:30  .dmrc
+drwx------  3 pedro pedro  4096 dez 26 20:30  .local
+-rw-r--r--  1 pedro pedro   807 dez 26 20:28  .profile
+
+a pasta /etc/skel tem o modelo dos arquivos que são adicionados a pasta do novo usuario
+
+
+#su - pedro
+pede a senha e alterna para o usuario pedro
+o shell fica
+pedro@adriano-desktop:~$
+
+#sudo groupadd projetos
+Cria um grupo novo no sistema
+
+#sudo usermod -aG projetos pedro
+Adiciona grupos suplemetares ao usuario pedro
+o g minúsculo troca o grupo principal para o grupo projetos e isso pode dar problema
+
+#groups pedro
+pedro : pedro projetos
+para mostrar os grupos do pedro
+A alteração será feita no arquivo /etc/group
+
+
+#sudo userdel pedro
+#sudo groupdel projetos
+
+#diretorio ou arquivo só pode pertencer a um unico dono e a um unico grupo
+drwxrwxr-x 17 root syslog   4096 jan 17 17:50 log
+r - read
+w - write
+x - execute
+o x atribuido a um diretorio diz que voce pode entrar no diretorio(direito de acesso)
+
+d rwx   rwx   r-x
+   |     |     |
+   v     v     v
+  user group other -> qualquer um
+
+Base octal (Numerical representation) para os acessos
+7 = rwx
+6 = rw-
+5 = r-x
+4 = r--
+3 = -wx
+2 = -w-
+1 = --x
+0 = ---
+
+#mkdir projetos
+#chmod 770 projetos/
+Altera a permissão do diretorio projetos deixando o usuario rwx, o grupo rwx e o resto ---
+#drwxrwx--- 2 adriano adriano 4096 jan 17 18:16 projetos
+
+#chmod 774 projetos/
+direto de leitura a todos os usuarios
+
+#chown adriano:adriano projetos/
+muda o dono do diretorio e o grupo tambem
+
+#chmod o-r projetos/
+Tirar a permissão de leitura de outros usuarios 
+#chmod u-r projetos/
+Tirar a permissão de leitura do usuario
+#chmod g-r projetos/
+Tirar a permissão de leitura do grupo
+
+
+#chmod g+r projetos/
+Atribui a permissão de leitura ao grupo na pasta projetos
+
+#chmod g+s projetos/
+permissão especial para o grupo do usuario a pasta projetos
+atribui aos arquivos e pastas criadas dentro da pasta projetos
+
+
+#sudo apt install
+instalar pacotes no linux
+
+#apt search apache2
+pesquisar um pacote no repositorio
+
+#apt show apache2
+mostra os detalhes do pacote apache2
+
+#sudo apt remove apache2
+Remove o apache
+
+#sudo apt autoremove
+remove as dependencias do apache2
+
+#apt list --upgradable
+mostra a lista de pacotes que podem ser atualizados
+
+#sudo apt upgrade
+atualiza os pacotes do sistema operacional
+
+#sudo apt list --installed
+lista os pacotes ja instalados no sistema
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
 
 
 
