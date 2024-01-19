@@ -105,6 +105,7 @@ redireciona a saida do comando cat para o comando grep e o resultado é acrescen
 
 #cat listagem  | sort > listagem2
 redireciona o conteudo do comando cat para o comando sort. Grava o resultado no arquivo listagem2
+o sort ordena as linhas do arquivo em ordem alfabetica
 
 #tail -n 5 /var/log/syslog | grep systemd > log5
 pegando as ultimas 5 linhas do arquivo de log do sistema, rediredionando a saida para o comando grep
@@ -563,6 +564,86 @@ atualiza os pacotes do sistema operacional
 
 #sudo apt list --installed
 lista os pacotes ja instalados no sistema
+
+#sudo lshw -c disk
+lista o hardware de disco da maquina sda, sdb etc
+
+#sudo fdisk -l
+mostra as partições de todos os discos do sistema
+sda1, sda2, sda3 se o disco fosse sdb, as partições seriam
+sdb1, sdb2, sdb3 etc
+
+#particionar
+#sudo fdisk /dev/sdb
+para criar as partirções e gravar a tabela de partições do disco
+
+#instalar a tabela na partição (formatar)
+#sudo mkfs -t ext4 /dev/sdb1
+#sudo mkfs.ext4 /dev/sdb1
+para formatar a partição lógica no disco do tipo ext4
+
+
+#montar o disco
+criar o diretorio onde o disco vai ser montado
+#mkdir disco2
+
+#sudo mount /dev/sdb1 /media/disco2/
+monta a partição do disco novo no media/disco2
+
+#mount | grep sd
+para ver o resultado
+/dev/sda2 on / type ext4 (rw,relatime,errors=remount-ro)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+/dev/sda2 on /var/snap/firefox/common/host-hunspell type ext4 (ro,noexec,noatime,errors=remount-ro)
+/dev/sda1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+gvfsd-fuse on /run/user/1000/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000)
+ 
+#para que o disco seja montado na inicialização deve-se editar o arquivo /etc/fstab
+#procedimento
+#sudo blkid
+para ver o id dos dispositivos de blocos (discos)
+/dev/sda2: UUID="52ce00ae-df77-4e5d-938b-af22c4889e9b"
+
+#fazer um copia primeiro
+#cd /etc
+#sudo cp fstab fstab.bkp
+
+#preencher o fstab da seguinte forma:
+UUID="52ce00ae-df77-4e5d-938b-af22c4889e9b" /media/disco2 ext4 defaults 0 2
+ou
+/dev/sdb2 /media/disco2 ext4 defaults 0 2
+
+
+#antes de reinicializar a maquina
+desmonte o disco
+e execute
+#sudo mount -a
+se não tiver erro o disco sera montado corretamente
+
+#sudo systemctl status servico
+#sudo systemctl start  servico
+#sudo systemctl stop   servico
+ou
+
+#sudo service apache2 start
+#sudo service apache2 stop
+
+
+#sudo systemctl disable apache2
+desabilitar o serviço da inicialização do sistema
+
+#sudo systemctl enable apache2
+habilitar o serviço pra subir na inicialização
+
+#sudo service --status-all
+mostra os status de todos os serviços
+
+
+
+
+
+
+
 
 
 
