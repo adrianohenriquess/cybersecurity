@@ -1,0 +1,13 @@
+#para configurar os ip de um roteador
+
+no cisco packet tracer, clicar no roteador e selecionar a aba CLI
+digitar os comandos:
+#enbale para subir o privilegio
+#configure e terminal
+#interface fastEthernet0/0 para selecionar a interface que voce quer configurar
+#no shutdown
+#ip address 193.168.3.1 255.255.255.0
+#exit
+
+depois é só proceder com a configuração das outras interfaces do roteador
+
