@@ -11,3 +11,7 @@ digitar os comandos:
 
 depois é só proceder com a configuração das outras interfaces do roteador
 
+saber qual é o ip atribuido a uma inteface especifica:
+#enable
+#show ip interface fastEthernet0/0
+
