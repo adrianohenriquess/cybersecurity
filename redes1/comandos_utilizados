@@ -3,7 +3,7 @@
 no cisco packet tracer, clicar no roteador e selecionar a aba CLI
 digitar os comandos:
 #enbale para subir o privilegio
-#configure e terminal
+#configure terminal
 #interface fastEthernet0/0 para selecionar a interface que voce quer configurar
 #no shutdown
 #ip address 193.168.3.1 255.255.255.0
@@ -14,4 +14,51 @@ depois é só proceder com a configuração das outras interfaces do roteador
 saber qual é o ip atribuido a uma inteface especifica:
 #enable
 #show ip interface fastEthernet0/0
+
+
+#configurar o DHCP (Protocolo de configuração dinâmica de hosts (IPs))
+#enable
+#ip dhcp pool fabrica
+rede do tipo C
+#network 193.168.3.0 255.255.255.0
+saida padrão (default gateway)
+#default-router 193.168.3.1
+#exit
+
+Configurar a interface fastEthernet0/0 no roteador
+#interface fastEthernet0/0
+#no shutdown
+#ip address 193.168.3.1 255.255.255.0
+#exit
+
+entrar nos pcs na aba desktop e IP configuration, selecionar a opção DHCP
+o ip será atribuído dinamicamente
+
+#Configurar um servidor web na rede 
+adicionar um switch e realizar as configurações:
+entrar no roteador e na aba CLI digitar:
+enable
+#configure terminal
+#interface fastEthernet0/1
+#ip address 9.9.9.1 255.0.0.0
+#no shutdown
+#exit
+
+
+Configurar um servidor de DNS na rede
+Adicionar um servidor na rede, entrar na aba services -> DNS
+em Dns service selecionar on e adicionar o endereço do site: www.fabrica.com
+e atribuir o endereço ip 9.0.255.255
+Entrar no CLI do roteador e digitar os comandos:
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip dhcp pool fabrica
+Router(dhcp-config)#dns-server 9.0.9.9
+Router(dhcp-config)#exit
+
+
+
+
+
 
