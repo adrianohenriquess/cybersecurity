@@ -152,6 +152,28 @@ abrir os pcs e gerar os ips via dhcp
 dessa forma o ping para um pc que está numa vlan diferente, irá funcionar
 pc do pesquisador A que está na vlan 10, consegue enviar um ping para o pc da coordenação que está na vlan 20
 
+Configurar uma nova mascara de rede ajustada e um novo ip para a rede de modo que a quantidade de ips seja adequada
+entrar no CLI do roteador
+
+Router>enable
+Router#configure terminal 
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip dhcp pool vlan10
+Router(dhcp-config)#network 172.16.0.0 255.255.254.0
+Router(dhcp-config)#default-router 172.16.0.1
+Router(dhcp-config)#exit
+Router(config)#ip dhcp pool vlan20
+Router(dhcp-config)#network 172.16.2.0 255.255.254.0
+Router(dhcp-config)#default-router 172.16.2.1
+Router(dhcp-config)#exit
+Router(config)#interface Fa 0/0.1
+Router(config-subif)#ip address 172.16.0.1 255.255.254.0
+Router(config-subif)#exit
+Router(config)#interface Fa 0/0.2
+Router(config-subif)#ip address 172.16.2.1 255.255.254.0
+Router(config-subif)#exit
+Router(config)#
 
 
+Depois selecionar dhcp e o packet vai gerar os ips dinamicos novamente
 
