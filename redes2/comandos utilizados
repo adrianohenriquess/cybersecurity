@@ -177,3 +177,89 @@ Router(config)#
 
 Depois selecionar dhcp e o packet vai gerar os ips dinamicos novamente
 
+
+Adicionar um servidor, liga-lo ao switch c e configurar a vlan 30 para ele na porta Fa 0/4
+no switch c
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 30
+Switch(config-vlan)#name servidores
+Switch(config-vlan)#exit
+Switch(config)#interface Fa 0/4
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#exit
+Switch(config)#
+
+executar esses passos para os outros switchs:
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 30
+Switch(config-vlan)#name servidores
+Switch(config-vlan)#exit
+
+abrir o roteador e executar os seguintes comandos:
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface Fa 0/0.3
+Router(config-subif)#
+%LINK-5-CHANGED: Interface FastEthernet0/0.3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0.3, changed state to up
+
+Router(config-subif)#encapsulation dot1Q 30
+Router(config-subif)#ip address 172.16.4.1 255.255.254.0
+Router(config-subif)#
+para configurar a subinterface 0/0.3 com o ip 172.16.4.1 255.255.254.0
+
+
+configurar o ip estatico do servidor tambem
+em fastEthernet0 172.16.4.2
+
+criar uma lista de acesso para os pcs de gerencia e coordenação
+mudar os ips dos pcs para estaticos e excluir do pool dhcp do roteador:
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip dhcp excluded-address 172.16.2.2
+Router(config)#ip dhcp excluded-address 172.16.2.3
+
+Configurar a lista de acesso permitido para o servidor da gerencia
+Router>enable
+Router#configure terminal
+Router(config)#ip access-list ?
+  extended  Extended Access List
+  standard  Standard Access List
+Router(config)#ip access-list extend gerencial
+Router(config-ext-nacl)#permit tcp 172.16.2.2 0.0.0.0 172.16.4.2 0.0.0.0
+Router(config-ext-nacl)#permit tcp 172.16.2.3 0.0.0.0 172.16.4.2 0.0.0.0
+Router(config-ext-nacl)#deny tcp 172.16.2.6 0.0.255.255 172.16.4.2 0.0.0.0
+Router(config-ext-nacl)#permit ip any any
+Router(config-ext-nacl)#exit
+Router(config)#
+
+associar as subinterfaces a lista de acesso "gerencial"
+
+Router>enable
+Router#configure terminal
+Router(config)#interface Fa 0/0.1
+Router(config-subif)#ip access-group gerencial in
+Router(config-subif)#exit
+Router(config)#interface Fa 0/0.2
+Router(config-subif)#ip access-group gerencial in
+Router(config-subif)#exit
+Router(config)#interface Fa 0/0.3
+Router(config-subif)#ip access-group gerencial in
+Router(config-subif)#exit
+
+
+
+
+
+
+
+
+
