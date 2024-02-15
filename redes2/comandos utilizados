@@ -255,9 +255,63 @@ Router(config)#interface Fa 0/0.3
 Router(config-subif)#ip access-group gerencial in
 Router(config-subif)#exit
 
+gravar as configurações na memória não volátil do roteador
+Router>enable
+Router#write
+Building configuration...
+[OK]
 
+Configurar o ip do roteador que será o provedor de internet
+Router>
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface serial 0/1/0
+%Invalid interface type and number
+Router(config)#interface serial 0/0/0
+Router(config-if)#ip address 150.1.1.1 255.255.255.252
+Router(config-if)#no shutdown
+Router(config-if)#exit
+Router(config)#exit
 
+Roteador da rede inovae
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface serial 0/1/0
+Router(config-if)#ip address 150.1.1.2 255.255.255.252
+Router(config-if)#no shutdown
+Router(config-if)#exit
+Router(config)#exit
+Router#
 
+Entrar no roteador do instituto inovae
+e configurar uma lista de acesso NAT (Network address translator)
+
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip access-list standard NAT
+#esse comando permit acesso aos ips que iniciam com 172.16. e compara com outros ips 
+que querem acessar com os mesmos dois octetos iniciais, mas com os dois finais variando
+Router(config-std-nacl)#permit 172.16.0.0 0.0.255.255
+Router(config-std-nacl)#exit
+configurar agora as sub interfaces como nat de entrada para duas 0.1 e 0.2
+e de saida nat para a interface seiral 0/1/0
+Router(config)#interface Fa 0/0.1
+Router(config-subif)#ip nat inside
+Router(config-subif)#exit
+Router(config)#interface Fa 0/0.2
+Router(config-subif)#ip nat inside
+Router(config-subif)#exit
+Router(config)#interface serial 0/1/0
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+
+Vincular a lista de acesso para que a tradução seja efetivamente realizada
+Router(config)#ip nat inside source list NAT interface serial 0/1/0 overload
+
+mostrar as traduções de ip nat
+Router#show ip nat translations
 
 
 
