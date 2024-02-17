@@ -1,0 +1,134 @@
+Pegar o projeto do curso anterior para dar continuidade
+configurar o roteador para um provedor de serviços de internet ISP
+
+Router ISP1 - A
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface Fa 0/0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#ip address 150.1.1.5 255.255.255.252
+Router(config-if)#
+
+Router ISP1 - B
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface Fa 0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 150.1.1.6 255.255.255.252
+Router(config-if)#exit
+
+Router(config)#interface Fa 0/1
+Router(config-if)#no shutdown
+Router(config-if)#ip address 150.1.1.9 255.255.255.252
+Router(config-if)#exit
+
+Configurar o roteador da rede inovae Router0
+
+Router>enable
+Router#configure terminal
+Router(config)#ip route 150.1.1.8 255.255.255.252 serial 0/1/0
+Router(config)#exit
+Router#show ip route
+
+     150.1.0.0/30 is subnetted, 2 subnets
+C       150.1.1.0 is directly connected, Serial0/1/0
+S       150.1.1.8 is directly connected, Serial0/1/0
+     172.16.0.0/23 is subnetted, 3 subnets
+C       172.16.0.0 is directly connected, FastEthernet0/0.1
+C       172.16.2.0 is directly connected, FastEthernet0/0.2
+C       172.16.4.0 is directly connected, FastEthernet0/0.3
+
+
+No roteador ISP1 - A
+Configurações para o protocolo RIP = Routing Information Protocol (Protocolo de informação de roteamento)
+Router(config)#router rip
+Router(config-router)#version 2
+Router(config-router)#no auto-summary
+Router(config-router)#network 150.1.1.0
+Router(config-router)#network 150.1.1.4
+Router(config-router)#
+
+no roteador ISP1 - B
+Router(config)#router rip
+Router(config-router)#version 2
+Router(config-router)#no auto summary
+Router(config-router)#network 150.1.1.4
+Router(config-router)#network 150.1.1.8
+Router(config-router)#exit
+Router(config)#
+
+
+
+Protocolo OSPF (Open shortest path first)
+Escolher o caminho mais curto primeiro
+Entrar no roteador ISP1 B 
+e executar os comandos 
+enable 
+write
+para gravar as alterações antes de desligar o roteador
+
+ISP1 B
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface serial 0/0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 160.1.1.1 255.255.255.252
+Router(config-if)#
+
+ISP2 C
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface serial 0/1/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 160.1.1.2 255.255.255.252
+Router(config-if)#exit
+Router(config)#interface Fa 0/0
+Router(config-if)#ip address 170.1.1.1 255.255.255.252
+Router(config-if)#no shutdown
+Router(config-if)#exit
+Router(config)#interface Fa 0/1
+Router(config-if)#no shutdown
+Router(config-if)#ip address 180.1.1.1 255.255.255.252
+Router(config-if)#exit
+
+ISP2 D
+Router>
+Router>enable
+Router#configure terminal
+Router(config)#interface Fa0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 180.1.1.2 255.255.255.252
+Router(config-if)#exit
+Router(config)#interface Fa0/1
+Router(config-if)#no shutdown
+Router(config-if)#ip address 190.1.1.1 255.255.255.252
+Router(config-if)#exit
+
+
+ISP2 C
+Configurando o roteamento OSPF
+Router#
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router ospf 1
+Router(config-router)#network 170.1.1.0 0.0.0.255 area 0
+Router(config-router)#network 180.1.1.0 0.0.0.255 area 0
+Router(config-router)#
+
+ISP2 D
+Corrigir o problema da rede errada setada antes no ospf do router ISP2 C
+Router(config)#router ospf 1
+Router(config-router)#no network 180.1.1.0 0.0.0.255 area 0
+Router(config-router)#network 170.1.1.0 0.0.0.255 area 0
+Router(config-router)#exit
+Router(config)#
+
+
