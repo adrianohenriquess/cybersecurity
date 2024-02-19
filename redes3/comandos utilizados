@@ -131,4 +131,142 @@ Router(config-router)#network 170.1.1.0 0.0.0.255 area 0
 Router(config-router)#exit
 Router(config)#
 
+BGP (Border Gateway Protocol)
+Protocolo de roteador de borda
+Configurando o protocolo BGP que integra sistemas autonomos na internet(Sub-redes)
+A rede é formada por diversas sub-redes, também chamadas de sistemas autônomos (AS), que precisam se conectar e trocar informações entre si. Quem garante que isso seja uma realidade são os protocolos BGP, através da troca de informações de roteamento e acessibilidade entre roteadores de borda  
+
+no roterador de borda da rede inovae ISP1 -B
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router bgp 1000
+Router(config-router)#neighbor 160.1.1.2 remote-as 2000
+Router(config-router)#
+
+agora no ISP1- C
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router bgp 2000
+Router(config-router)#neighbor 160.1.1.1 remote-as 1000
+Router(config-router)#%BGP-5-ADJCHANGE: neighbor 160.1.1.1 Up
+
+Router(config-router)#network 170.1.1.0 mask 255.255.255.252
+Router(config-router)#network 180.1.1.0 mask 255.255.255.252
+Router(config-router)#network 190.1.1.0 mask 255.255.255.252
+Router(config-router)#
+
+Voltamos no B para verificar a tabela de rotas
+Router>enable
+Router#show ip route
+
+ainda no B, divulgamos as redes
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#route bgp 1000
+Router(config-router)#network 150.1.1.0 mask 255.255.255.252
+Router(config-router)#network 150.1.1.4 mask 255.255.255.252
+Router(config-router)#network 150.1.1.8 mask 255.255.255.252
+Router(config-router)#exit
+Router(config)#
+
+No ISP2 - C
+Router>enable
+Router#show ip route
+     150.1.0.0/30 is subnetted, 3 subnets
+B       150.1.1.0 [20/0] via 160.1.1.1, 00:00:00
+B       150.1.1.4 [20/0] via 160.1.1.1, 00:00:00
+B       150.1.1.8 [20/0] via 160.1.1.1, 00:00:00
+     160.1.0.0/30 is subnetted, 1 subnets
+C       160.1.1.0 is directly connected, Serial0/1/0
+     170.1.0.0/30 is subnetted, 1 subnets
+C       170.1.1.0 is directly connected, FastEthernet0/0
+     180.1.0.0/30 is subnetted, 1 subnets
+C       180.1.1.0 is directly connected, FastEthernet0/1
+     190.1.0.0/30 is subnetted, 1 subnets
+O IA    190.1.1.0 [110/2] via 170.1.1.2, 00:17:19, FastEthernet0/0
+
+ainda no ISP2 - C redistribuir com o protocolo ospf
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router ospf 1
+Router(config-router)#redistribute bgp 2000 subnets
+Router(config-router)#
+
+Agora no ISP2-D testamos a tabela de rota para ver se as subredes estão sendo vistas
+show ip route
+     150.1.0.0/30 is subnetted, 3 subnets
+O E2    150.1.1.0 [110/20] via 170.1.1.1, 00:01:28, FastEthernet0/0
+O E2    150.1.1.4 [110/20] via 170.1.1.1, 00:01:28, FastEthernet0/0
+O E2    150.1.1.8 [110/20] via 170.1.1.1, 00:01:28, FastEthernet0/0
+     170.1.0.0/30 is subnetted, 1 subnets
+C       170.1.1.0 is directly connected, FastEthernet0/0
+     180.1.0.0/30 is subnetted, 1 subnets
+O       180.1.1.0 [110/2] via 170.1.1.1, 00:25:41, FastEthernet0/0
+     190.1.0.0/30 is subnetted, 1 subnets
+C       190.1.1.0 is directly connected, FastEthernet0/1
+
+
+Agora no roteador ISP1B, fazer a cofiguração parecida com o redistribute, mas para o protocolo RIP
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router rip
+Router(config-router)#default-information originate
+Router(config-router)#
+
+
+No ISP1A 
+Router>enable
+Router#show ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is 150.1.1.6 to network 0.0.0.0
+
+     150.1.0.0/30 is subnetted, 3 subnets
+C       150.1.1.0 is directly connected, Serial0/1/0
+C       150.1.1.4 is directly connected, FastEthernet0/0
+R       150.1.1.8 [120/1] via 150.1.1.6, 00:00:07, FastEthernet0/0
+R*   0.0.0.0/0 [120/1] via 150.1.1.6, 00:00:07, FastEthernet0/0
+
+Esse R* indica que quando o ISP1A não souber pra onde ele manda o pacote, por que o pacote é
+para fora da rede, ele vai direcionar para o roteador B que sabe pra onde encaminhar
+
+
+Testes no server ISP1
+C:\>ping 190.1.1.2
+
+Pinging 190.1.1.2 with 32 bytes of data:
+
+Reply from 190.1.1.2: bytes=32 time=8ms TTL=125
+Reply from 190.1.1.2: bytes=32 time=6ms TTL=125
+Reply from 190.1.1.2: bytes=32 time=16ms TTL=125
+Reply from 190.1.1.2: bytes=32 time=7ms TTL=125
+
+Ping statistics for 190.1.1.2:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 6ms, Maximum = 16ms, Average = 9ms
+    
+Testes no roteador ISP1-A
+Router#ping 190.1.1.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 190.1.1.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 7/9/18 ms
+
+
+
+
+
+
 
