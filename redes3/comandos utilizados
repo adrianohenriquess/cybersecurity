@@ -265,7 +265,28 @@ Sending 5, 100-byte ICMP Echos to 190.1.1.2, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 7/9/18 ms
 
 
+//Desfazendo a rota estática no roteador do inovae para a porta serial 0/1/0
 
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#no ip route 150.1.1.8 255.255.255.252 serial 0/1/0
+Router(config)#ip route 0.0.0.0 0.0.0.0 serial 0/1/0
+Router(config)#
+
+Dessa forma quando um pacote chegar no roteador e ele não tiver um destino dentro da rede 
+do inovae, ou seja, antes do roteador, o roteador vai encaminhar para o próximo roteador
+e vai usar a porta serial 0/1/0 para isso
+
+Configurar o dns server para o roteador do inovae
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip dhcp pool vlan10
+Router(dhcp-config)#dns-server 180.1.1.2
+Router(dhcp-config)#exit
+Router(config)#ip dhcp pool vlan20
+Router(dhcp-config)#dns-server 180.1.1.2
+Router(dhcp-config)#
 
 
 
