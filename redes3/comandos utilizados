@@ -288,6 +288,69 @@ Router(config)#ip dhcp pool vlan20
 Router(dhcp-config)#dns-server 180.1.1.2
 Router(dhcp-config)#
 
+Configurando o protocolo ipv6 para um novo servidor
+Adicionar um novo servidor e conecta-lo ao switch do instituto inovae
+e executar os seguintes comandos:
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#interface Fa 0/10
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#exit
+Switch(config)#exit
+Switch#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Switch#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                Fa0/9, Fa0/11, Fa0/12, Fa0/13
+                                                Fa0/14, Fa0/15, Fa0/16, Fa0/17
+                                                Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                Fa0/22, Fa0/23, Fa0/24
+10   pesquisa                         active    
+20   administrativo                   active    
+30   servidores                       active    Fa0/4, Fa0/10
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+Switch#
+
+Configurar o Ipv6 no servidor 
+2001:BAA::BBBB
+
+E no roteador da rede inovae
+Habilitamos o protocolo ipv6 para as subinterfaces de rede
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ipv6 unicast-routing
+Router(config)#interface Fa0/0.3
+Router(config-subif)#ipv6 address 2001:BAA::AAAA/64
+Router(config-subif)#do ping 2001:BAA::BBBB
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2001:BAA::BBBB, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/1 ms
+
+Router(config-subif)#exit
+Router(config)#interface Fa0/0.1
+Router(config-subif)#ipv6 address 2002:BAA::AAAA/64
+Router(config-subif)#exit
+Router(config)#interface Fa0/0.2
+Router(config-subif)#ipv6 address 2003:BAA::AAAA/64
+Router(config-subif)#exit
+Router(config)#
+
+
+
+
+
+
 
 
 
