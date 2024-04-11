@@ -1,0 +1,79 @@
+Comandos para saber informações da máquina
+
+ifconfig: mais antigo, mostra o ip da maquina e as interfaces
+
+
+ip addr: mais novo mostra as interfaces e os respectivos ips:
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether 0a:e0:af:ae:03:81 brd ff:ff:ff:ff:ff:ff
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 5c:62:8b:9d:d0:00 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.189/24 brd 192.168.0.255 scope global dynamic noprefixroute wlan0
+       valid_lft 42347sec preferred_lft 42347sec
+    inet6 2804:14c:f435:82aa::1004/128 scope global dynamic noprefixroute 
+       valid_lft 85515sec preferred_lft 71115sec
+    inet6 2804:14c:f435:82aa:294e:300b:bcc1:574/64 scope global dynamic noprefixroute 
+       valid_lft 85516sec preferred_lft 71116sec
+    inet6 fe80::92b0:fe79:f03c:1a97/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+1: interface de loopback:
+é uma interface de rede virtual que permite que um cliente e um servidor se comuniquem no mesmo host
+
+2: eth0:
+Seria ativada se a conexão fosse cabeada
+
+3: wlan0:
+Efetivamente a minha conexão de rede com a internet e o meu ip aparece nela:
+192.168.0.189/24
+
+Outras informações da rede:(Obtidas no site ip calc)
+Address:   192.168.0.189         11000000.10101000.00000000 .10111101
+Netmask:   255.255.255.0 = 24    11111111.11111111.11111111 .00000000
+/24 por que é 8.8.8 bits na mascara de rede
+Wildcard:  0.0.0.255             00000000.00000000.00000000 .11111111
+=>
+Network:   192.168.0.0/24        11000000.10101000.00000000 .00000000 (Class C)
+Broadcast: 192.168.0.255         11000000.10101000.00000000 .11111111
+HostMin:   192.168.0.1           11000000.10101000.00000000 .00000001
+HostMax:   192.168.0.254         11000000.10101000.00000000 .11111110
+Hosts/Net: 254                   (Private Internet)
+
+
+Gateway default da rede:(Porta de saida padrão da rede)
+
+$ ip route
+default via 192.168.0.1 dev wlan0 proto dhcp src 192.168.0.189 metric 600 
+192.168.0.0/24 dev wlan0 proto kernel scope link src 192.168.0.189 metric 600 
+
+$ route 
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.0.1     0.0.0.0         UG    600    0        0 wlan0
+192.168.0.0     0.0.0.0         255.255.255.0   U     600    0        0 wlan0
+
+$ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.0.1     0.0.0.0         UG    600    0        0 wlan0
+192.168.0.0     0.0.0.0         255.255.255.0   U     600    0        0 wlan0
+
+-n para não resolver os nomes
+0.0.0.0 é qualquer ip 
+
+
+10.0.0.0        -   10.255.255.255  (10/8 prefix)
+172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+
+endereços reservados para redes privadas
+
+
+
+
