@@ -154,6 +154,22 @@ cat /etc/hosts
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
+-----------------------------------------------------------------------------
+ping 
+serve para ver se conseguimos chegar em um determinado site atravez do protocolo
+icmp, pode ser que o site esteja com o protocolo icmp bloqueado
 
+$ traceroute 8.8.8.8
+
+Traceroute é um comando que mostra o caminho que o pacote percorre na rede. Neste caso
+estou tentando mapear o caminho para o DNS do google.com
+é possivel usar varios protocolos com o traceroute
+
+traceroute -I para icmp
+traceroute -T para tcp
+
+voce pode ver o resultado no mapa com https://whatismyip.com.br/visualtraceroute.php
+
+para verificar a latency sobre as regiões da aws: https://aws-latency-test.com/
 
 
