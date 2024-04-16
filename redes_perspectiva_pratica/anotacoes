@@ -172,4 +172,33 @@ voce pode ver o resultado no mapa com https://whatismyip.com.br/visualtraceroute
 
 para verificar a latency sobre as regiões da aws: https://aws-latency-test.com/
 
+--------------------------------------------------------------------------------
 
+telnet serve para testar as portas dos serviços e os serviços:
+$ telnet www.google.com 80
+
+$cat /etc/services | more
+Esse arquivo é um mapeamento dos protocolos para as portas
+
+
+Internet Assigned Numbers Authority
+https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+
+Curl - serve para tentar acessar um site direto no terminal de comandos
+curl -Is https://www.alura.com.br
+
+Tradução de endereços NAT:
+netstat -n
+mapea os ips de serviços com origem e destino
+o -n é pra não resolver nomes
+
+
+Site que mostra o meu ip publico:
+https://www.whatismyip.com/
+
+curl ifconfig.me
+mostra o ip publico da minha maquina tambem
+
+sudo tcpdump port 80 -v -n 
+
+telnet 179.157.85.10 80
